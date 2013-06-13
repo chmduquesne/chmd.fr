@@ -1,0 +1,72 @@
+/*
+ * Color theme:
+ * sides: #C7E1BA
+ * title: #757575
+ * categories, links: #397249
+ * bar before categories: #9CB770
+ */
+
+html {
+    background: #222222;
+}
+
+/* Whole document */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 60%;
+    margin: auto;
+    background: #FFFFFF;
+    padding: 1%;
+}
+
+h1 {
+    padding: 0.2em;
+    margin:0px;
+    font-size: 3em;
+    color: #444444;
+    text-align:center;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+    color: white;
+    background: #527578;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+h2 {
+    padding-left:1%;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+    background: #666666;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+p {
+    padding-left:1%;
+}
+
+/* Links */
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #527578;
+}
+a:hover, a:active {
+    background-color: #527578;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+}
+
+/* Horizontal separators */
+hr {
+    color: #A6A6A6;
+}
+
+pre {
+    margin-left:2%;
+    margin-right:2%;
+    padding: 1em;
+    color:white;
+    background:black;
+}
