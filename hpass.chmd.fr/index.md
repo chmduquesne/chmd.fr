@@ -1,6 +1,11 @@
 Hpass
 =====
 
+TL,DR: where is the mobile version?
+-----------------------------------
+
+[Here](https://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+
 Summary
 -------
 
@@ -36,9 +41,12 @@ easily:
         openssl enc -base64 | \
         cut -c1-$LEN
 
-Where \$DOMAIN is the domain name of the website, \$HASHTYPE is a type of
-checksum (md5, sha1, sha256, sha512...), \$MASTER is your
-master password, and \$LEN is the length of the desired password.
+Where:
+
+  * \$DOMAIN is the domain name of the website;
+  * \$HASHTYPE is a type of checksum (md5, sha1, sha256, sha512...);
+  * \$MASTER is your master password;
+  * and \$LEN is the length of the desired password.
 
 Implementations
 ---------------
@@ -81,10 +89,10 @@ support for that some day, but right now, I prefer to keep things simple
 Repository
 ----------
 You can browse the code on
-[gitweb.chmd.fr](http://gitweb.chmd.fr/?p=hpass.git;a=summary). To clone
+[git.chmd.fr](https://git.chmd.fr/?p=hpass.git;a=summary). To clone
 it:
 
-    git clone http://git.chmd.fr/hpass.git
+    git clone https://git.chmd.fr/hpass.git
 
 
 License/Credits
