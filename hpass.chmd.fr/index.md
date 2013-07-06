@@ -4,7 +4,7 @@ Hpass
 TL,DR: where is the mobile version?
 -----------------------------------
 
-[Here](https://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+[Here](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
 
 Summary
 -------
@@ -89,10 +89,10 @@ support for that some day, but right now, I prefer to keep things simple
 Repository
 ----------
 You can browse the code on
-[git.chmd.fr](https://git.chmd.fr/?p=hpass.git;a=summary). To clone
+[git.chmd.fr](http://git.chmd.fr/?p=hpass.git;a=summary). To clone
 it:
 
-    git clone https://git.chmd.fr/hpass.git
+    git clone http://git.chmd.fr/hpass.git
 
 
 License/Credits
