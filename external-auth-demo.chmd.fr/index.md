@@ -1,5 +1,5 @@
-lighttpd external-auth demo: oh yeah!
-=====================================
+external-auth demo: oh yeah!
+============================
 
 Congrats! If you are seeing this, it means that you have logged in.
 
