@@ -5,7 +5,7 @@ PDF=$(MD:.md=.pdf)
 DOCX=$(MD:.md=.docx)
 TXT=$(MD:.md=.txt)
 
-all: $(HTML)
+all: $(HTML) $(PDF) $(DOCX) $(TXT)
 
 %.html: %.md style.css
 	pandoc -s -c style.css -o $@ $<
