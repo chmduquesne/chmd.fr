@@ -9,10 +9,11 @@ TL,DR: where is the mobile version?
 Summary
 -------
 
-Hpass allows you to use different passwords on every websites, without
-having to remember them. Instead, you memorize one **unique** master
-password. Using your master password and the domain name of the web site,
-Hpass generates a unique password for the web site.
+Hpass allows you to generate different passwords for every websites while
+having to memorize only one **unique** master password. The generation is
+deterministic, such that you can always find your password from your
+master password and the name of the website, without storing any data on
+your computer. You are thus protected against data loss.
 
 Inspiration
 -----------
@@ -64,28 +65,25 @@ implemented for several platforms:
     also exists, for when both your computer and your cellphone are out of
     reach.
 
-What needs to be improved
--------------------------
+Upcoming features
+-----------------
 
-There is no "salt" in the implementation. Basically, for every domain
-name, a random string could be appended to the master password. This would
-improve the security, but expose the uses to data loss and require
-synchronization between the devices used to generate the passwords. The
-advantages you could get out of it:
+Currently, if one of your generated password is compromised, there is no
+way to change it in Hpass without changing your master password. To solve
+this problem, next versions of Hpass should include a concept of password
+version. The password version will be number, starting at 0 and being
+incremented everytime you want to change this password only. Hpass would
+remember this number and use it in the password generation.
 
-  1. Modifying only one password would be easier: right now, it is not
-     possible to modify only **one** of your passwords. When you lose
-     one of your passwords, you need to change your master password to
-     change it, which implies changing every password that you manage
-     with Hpass.
-  2. Stealing your master password would not enable an attacker to steal
-     all of your passwords, since this attacker would also need these
-     "salts" to generate your passwords.
+The reason why the version of a password will be deterministic is to
+prevent you against data loss: if you lose the data associated with the
+app, you will just have to bump a few versions until you can regenerate
+the correct password!
 
-However, synchronisation is complicated. It is a matter of trust in third
-parties to store your salts, and of confidence that you will not
-experiment data loss. This latter aspect is extremely important: should
-you lose the salts, you would lose all your passwords!
+In order to make it convenient, Hpass will synchronize the version numbers
+through a secure anonymous data store. This data store should be seen as a
+synchronization method, not as a backup! More info on
+[minibackup.chmd.fr](http://minibackup.chmd.fr).
 
 Repository
 ----------

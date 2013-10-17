@@ -13,7 +13,7 @@
 <h2 id="tldr-where-is-the-mobile-version">TL,DR: where is the mobile version?</h2>
 <p><a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">Here</a></p>
 <h2 id="summary">Summary</h2>
-<p>Hpass allows you to use different passwords on every websites, without having to remember them. Instead, you memorize one <strong>unique</strong> master password. Using your master password and the domain name of the web site, Hpass generates a unique password for the web site.</p>
+<p>Hpass allows you to generate different passwords for every websites while having to memorize only one <strong>unique</strong> master password. The generation is deterministic, such that you can always find your password from your master password and the name of the website, without storing any data on your computer. You are thus protected against data loss.</p>
 <h2 id="inspiration">Inspiration</h2>
 <p>Hpass was inspired by various extensions and bookmarklets (the most famous being <a href="http://supergenpass.com">Supergenpass</a>). However Supergenpass sucks in many aspects:</p>
 <ol style="list-style-type: decimal">
@@ -41,13 +41,10 @@
 <li>On a day to day basis, the author uses a shell implementation that sits in the tray. It stores/gets the password from gnome-keyring.</li>
 <li>A <a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">javascript implementation</a> also exists, for when both your computer and your cellphone are out of reach.</li>
 </ul>
-<h2 id="what-needs-to-be-improved">What needs to be improved</h2>
-<p>There is no &quot;salt&quot; in the implementation. Basically, for every domain name, a random string could be appended to the master password. This would improve the security, but expose the uses to data loss and require synchronization between the devices used to generate the passwords. The advantages you could get out of it:</p>
-<ol style="list-style-type: decimal">
-<li>Modifying only one password would be easier: right now, it is not possible to modify only <strong>one</strong> of your passwords. When you lose one of your passwords, you need to change your master password to change it, which implies changing every password that you manage with Hpass.</li>
-<li>Stealing your master password would not enable an attacker to steal all of your passwords, since this attacker would also need these &quot;salts&quot; to generate your passwords.</li>
-</ol>
-<p>However, synchronisation is complicated. It is a matter of trust in third parties to store your salts, and of confidence that you will not experiment data loss. This latter aspect is extremely important: should you lose the salts, you would lose all your passwords!</p>
+<h2 id="upcoming-features">Upcoming features</h2>
+<p>Currently, if one of your generated password is compromised, there is no way to change it in Hpass without changing your master password. To solve this problem, next versions of Hpass should include a concept of password version. The password version will be number, starting at 0 and being incremented everytime you want to change this password only. Hpass would remember this number and use it in the password generation.</p>
+<p>The reason why the version of a password will be deterministic is to prevent you against data loss: if you lose the data associated with the app, you will just have to bump a few versions until you can regenerate the correct password!</p>
+<p>In order to make it convenient, Hpass will synchronize the version numbers through a secure anonymous data store. This data store should be seen as a synchronization method, not as a backup! More info on <a href="http://minibackup.chmd.fr">minibackup.chmd.fr</a>.</p>
 <h2 id="repository">Repository</h2>
 <p>You can browse the code on <a href="http://git.chmd.fr/?p=hpass.git;a=summary">git.chmd.fr</a>. To clone it:</p>
 <pre><code>git clone http://git.chmd.fr/hpass.git</code></pre>
