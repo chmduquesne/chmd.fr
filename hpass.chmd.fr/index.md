@@ -60,8 +60,7 @@ implemented for several platforms:
     default browser).
   - On a day to day basis, the author uses a shell implementation that
     sits in the tray. It stores/gets the password from gnome-keyring.
-  - A [javascript implementation]
-    (http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+  - A [javascript implementation](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
     also exists, for when both your computer and your cellphone are out of
     reach.
 
