@@ -9,32 +9,31 @@ TL,DR: where is the mobile version?
 Summary
 -------
 
-Hpass is a different approach to passwords management. It allows you to
-use different passwords on every websites, without having to remember
-them. Instead, you memorize one **unique** master password. Using your
-master password and the domain name of the web site, Hpass generates a
-unique password for the web site.
+Hpass allows you to use different passwords on every websites, without
+having to remember them. Instead, you memorize one **unique** master
+password. Using your master password and the domain name of the web site,
+Hpass generates a unique password for the web site.
 
 Inspiration
 -----------
 
 Hpass was inspired by various extensions and bookmarklets (the most famous
-being [Supergenpass](http://supergenpass.com)). The reason why I wrote
-Hpass is because Supergenpass sucks in many aspects:
+being [Supergenpass](http://supergenpass.com)). However Supergenpass sucks
+in many aspects:
 
   1. The algorithm is not proven to be secure (See
      [why](http://stackoverflow.com/a/3484954/628786)).
   2. Supergenpass bookmarklet implementation can leak your
      master password (See
      [how](http://akibjorklund.com/2009/supergenpass-is-not-that-secure)).
-  3. I wanted to be able to regenerate any of my passwords using a
-     simple command line.
+  3. The algorithm is not easily reproducable (no shell one-liners are
+     available)
 
 Specification
 -------------
 
-The way Hpass generates password is dead simple, and can be reproduced
-easily:
+The way Hpass generates password can be reproduced in one single command
+line:
 
     echo -n $DOMAIN | \
         openssl dgst -$HASHTYPE -hmac $MASTER -binary | \
@@ -51,24 +50,29 @@ Where:
 Implementations
 ---------------
 
-Because we need our passwords in different situations, I implemented hpass
-for several platforms:
+Because we need our passwords in different situations, Hpass is
+implemented for several platforms:
 
-  - There's an android version on the google play store. It will open
-    links shared from the browsers, but it can also open a link scanned
-    through a barcode (provided you did not already set a default
-    browser).
-  - On a day to day basis, I use a shell implementation that sits in the
-    tray. It stores/gets the password from gnome-keyring.
-  - I also wrote a javascript implementation, for when both your
-    computer and your cellphone are out of reach.
+  - There's an [android
+    version](https://play.google.com/store/apps/details?id=fr.chmd.hpass).
+    It will open links shared from the browsers, but it can also open a
+    link scanned through a barcode (provided you did not already set a
+    default browser).
+  - On a day to day basis, the author uses a shell implementation that
+    sits in the tray. It stores/gets the password from gnome-keyring.
+  - A [javascript implementation]
+    (http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+    also exists, for when both your computer and your cellphone are out of
+    reach.
 
 What needs to be improved
 -------------------------
 
-I did not add a "salt" in the implementation. Basically, for every domain
-name, we could append to the master password a random string that would
-stored and synchronized in a "cloudy" way. This would allow two things:
+There is no "salt" in the implementation. Basically, for every domain
+name, a random string could be appended to the master password. This would
+improve the security, but expose the uses to data loss and require
+synchronization between the devices used to generate the passwords. The
+advantages you could get out of it:
 
   1. Modifying only one password would be easier: right now, it is not
      possible to modify only **one** of your passwords. When you lose
@@ -82,9 +86,7 @@ stored and synchronized in a "cloudy" way. This would allow two things:
 However, synchronisation is complicated. It is a matter of trust in third
 parties to store your salts, and of confidence that you will not
 experiment data loss. This latter aspect is extremely important: should
-you lose the salts, you would lose all your passwords!  I might add
-support for that some day, but right now, I prefer to keep things simple
-:)
+you lose the salts, you would lose all your passwords!
 
 Repository
 ----------
