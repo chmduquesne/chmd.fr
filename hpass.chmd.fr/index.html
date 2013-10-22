@@ -11,22 +11,18 @@
 <body>
 <h1 id="hpass">Hpass</h1>
 <h2 id="intro">Intro</h2>
-<p>Most people know they ought to be using a real password manager, but they don't, because they are afraid: - of not having their passwords when they need them - of losing their encrypted passwords because of hardware failure</p>
+<p>Everyone should be using a password manager, but most people don't, because of the fears of:</p>
+<ul>
+<li>not having their passwords when they need them</li>
+<li>losing their encrypted passwords</li>
+</ul>
 <p>Hpass is a password manager that does not store passwords. Instead, it generates them. You provide it with a <strong>master password</strong> and a <strong>domain name</strong>, and it returns a secure password for you to use with that domain.</p>
 <h2 id="implementations">Implementations</h2>
-<p>Because we need our passwords in different situations, Hpass is implemented for several platforms:</p>
 <ul>
-<li>There's an <a href="https://play.google.com/store/apps/details?id=fr.chmd.hpass">android version</a>. It will open links shared from the browsers, but it can also open a link scanned through a barcode (provided you did not already set a default browser).</li>
+<li>Check first the <a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">javascript implementation</a>. It is ideal when your own computer and smartphone are out of reach.</li>
+<li>There's also an <a href="https://play.google.com/store/apps/details?id=fr.chmd.hpass">android version</a>. It will open links shared from the browsers, but it can also open a link scanned through a barcode (provided you did not already set a default browser).</li>
 <li>On a day to day basis, the author uses a shell implementation that sits in the tray. It stores/gets the password from gnome-keyring.</li>
-<li>A <a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">javascript implementation</a> also exists, for when both your computer and your cellphone are out of reach.</li>
 </ul>
-<h2 id="inspiration">Inspiration</h2>
-<p>Hpass was inspired by various extensions and bookmarklets (the most famous being <a href="http://supergenpass.com">Supergenpass</a>). However Supergenpass sucks in many aspects:</p>
-<ol style="list-style-type: decimal">
-<li>The algorithm is not proven to be secure (See <a href="http://stackoverflow.com/a/3484954/628786">why</a>).</li>
-<li>Supergenpass bookmarklet implementation can leak your master password (See <a href="http://akibjorklund.com/2009/supergenpass-is-not-that-secure">how</a>).</li>
-<li>The algorithm is not easily reproducable (no shell one-liners are available)</li>
-</ol>
 <h2 id="specification">Specification</h2>
 <p>The way Hpass generates password can be reproduced in one single command line:</p>
 <pre><code>echo -n $DOMAIN | \
@@ -47,11 +43,18 @@
 <h2 id="repository">Repository</h2>
 <p>You can browse the code on <a href="http://git.chmd.fr/?p=hpass.git;a=summary">git.chmd.fr</a>. To clone it:</p>
 <pre><code>git clone http://git.chmd.fr/hpass.git</code></pre>
+<h2 id="what-about-supergenpass">What about supergenpass?</h2>
+<p>Hpass was inspired by various extensions and bookmarklets (the most famous being <a href="http://supergenpass.com">Supergenpass</a>, but there are others). Supergenpass sucks in many aspects:</p>
+<ol style="list-style-type: decimal">
+<li>The algorithm is not proven to be secure (See <a href="http://stackoverflow.com/a/3484954/628786">why</a>).</li>
+<li>Supergenpass bookmarklet implementation can leak your master password (See <a href="http://akibjorklund.com/2009/supergenpass-is-not-that-secure">how</a>).</li>
+<li>The algorithm is not easily reproducable (no shell one-liners are available)</li>
+</ol>
 <h2 id="licensecredits">License/Credits</h2>
 <p>Useful informations:</p>
 <ul>
 <li>Hpass is delivered under the GPLv3+.</li>
-<li>The icon I have been using for the Hpass android application is from the 'lock' from the <a href="https://code.google.com/p/faenza-icon-theme">faenza gtk icon theme</a>.</li>
+<li>The icon used for the Hpass android application is the 'lock' from the <a href="https://code.google.com/p/faenza-icon-theme">faenza gtk icon theme</a>.</li>
 </ul>
 </body>
 </html>

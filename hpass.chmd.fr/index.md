@@ -4,10 +4,11 @@ Hpass
 Intro
 -----
 
-Most people know they ought to be using a real password manager, but they
-don't, because they are afraid:
-- of not having their passwords when they need them
-- of losing their encrypted passwords because of hardware failure
+Everyone should be using a password manager, but most people don't,
+because of the fears of:
+
+- not having their passwords when they need them
+- losing their encrypted passwords
 
 Hpass is a password manager that does not store passwords. Instead, it
 generates them. You provide it with a **master password** and a **domain
@@ -16,34 +17,16 @@ name**, and it returns a secure password for you to use with that domain.
 Implementations
 ---------------
 
-Because we need our passwords in different situations, Hpass is
-implemented for several platforms:
-
-  - There's an [android
+  - Check first the [javascript
+    implementation](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD).
+    It is ideal when your own computer and smartphone are out of reach.
+  - There's also an [android
     version](https://play.google.com/store/apps/details?id=fr.chmd.hpass).
     It will open links shared from the browsers, but it can also open a
     link scanned through a barcode (provided you did not already set a
     default browser).
   - On a day to day basis, the author uses a shell implementation that
     sits in the tray. It stores/gets the password from gnome-keyring.
-  - A [javascript implementation](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
-    also exists, for when both your computer and your cellphone are out of
-    reach.
-
-Inspiration
------------
-
-Hpass was inspired by various extensions and bookmarklets (the most famous
-being [Supergenpass](http://supergenpass.com)). However Supergenpass sucks
-in many aspects:
-
-  1. The algorithm is not proven to be secure (See
-     [why](http://stackoverflow.com/a/3484954/628786)).
-  2. Supergenpass bookmarklet implementation can leak your
-     master password (See
-     [how](http://akibjorklund.com/2009/supergenpass-is-not-that-secure)).
-  3. The algorithm is not easily reproducable (no shell one-liners are
-     available)
 
 Specification
 -------------
@@ -91,12 +74,26 @@ it:
 
     git clone http://git.chmd.fr/hpass.git
 
+What about supergenpass?
+------------------------
+
+Hpass was inspired by various extensions and bookmarklets (the most famous
+being [Supergenpass](http://supergenpass.com), but there are others).
+Supergenpass sucks in many aspects:
+
+  1. The algorithm is not proven to be secure (See
+     [why](http://stackoverflow.com/a/3484954/628786)).
+  2. Supergenpass bookmarklet implementation can leak your
+     master password (See
+     [how](http://akibjorklund.com/2009/supergenpass-is-not-that-secure)).
+  3. The algorithm is not easily reproducable (no shell one-liners are
+     available)
+
 License/Credits
 -------
 
 Useful informations:
 
   * Hpass is delivered under the GPLv3+.
-  * The icon I have been using for the Hpass android application is from
-    the 'lock' from the [faenza gtk icon
-    theme](https://code.google.com/p/faenza-icon-theme).
+  * The icon used for the Hpass android application is the 'lock' from the
+    [faenza gtk icon theme](https://code.google.com/p/faenza-icon-theme).
