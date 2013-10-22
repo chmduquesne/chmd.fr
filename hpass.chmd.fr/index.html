@@ -10,10 +10,16 @@
 </head>
 <body>
 <h1 id="hpass">Hpass</h1>
-<h2 id="tldr-where-is-the-mobile-version">TL,DR: where is the mobile version?</h2>
-<p><a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">Here</a></p>
-<h2 id="summary">Summary</h2>
-<p>Hpass allows you to generate different passwords for every websites while having to memorize only one <strong>unique</strong> master password. The generation is deterministic, such that you can always find your password from your master password and the name of the website, without storing any data on your computer. You are thus protected against data loss.</p>
+<h2 id="intro">Intro</h2>
+<p>Most people know they ought to be using a real password manager, but they don't, because they are afraid: - of not having their passwords when they need them - of losing their encrypted passwords because of hardware failure</p>
+<p>Hpass is a password manager that does not store passwords. Instead, it generates them. You provide it with a <strong>master password</strong> and a <strong>domain name</strong>, and it returns a secure password for you to use with that domain.</p>
+<h2 id="implementations">Implementations</h2>
+<p>Because we need our passwords in different situations, Hpass is implemented for several platforms:</p>
+<ul>
+<li>There's an <a href="https://play.google.com/store/apps/details?id=fr.chmd.hpass">android version</a>. It will open links shared from the browsers, but it can also open a link scanned through a barcode (provided you did not already set a default browser).</li>
+<li>On a day to day basis, the author uses a shell implementation that sits in the tray. It stores/gets the password from gnome-keyring.</li>
+<li>A <a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">javascript implementation</a> also exists, for when both your computer and your cellphone are out of reach.</li>
+</ul>
 <h2 id="inspiration">Inspiration</h2>
 <p>Hpass was inspired by various extensions and bookmarklets (the most famous being <a href="http://supergenpass.com">Supergenpass</a>). However Supergenpass sucks in many aspects:</p>
 <ol style="list-style-type: decimal">
@@ -33,13 +39,6 @@
 <li>$HASHTYPE is a type of checksum (md5, sha1, sha256, sha512...);</li>
 <li>$MASTER is your master password;</li>
 <li>and $LEN is the length of the desired password.</li>
-</ul>
-<h2 id="implementations">Implementations</h2>
-<p>Because we need our passwords in different situations, Hpass is implemented for several platforms:</p>
-<ul>
-<li>There's an <a href="https://play.google.com/store/apps/details?id=fr.chmd.hpass">android version</a>. It will open links shared from the browsers, but it can also open a link scanned through a barcode (provided you did not already set a default browser).</li>
-<li>On a day to day basis, the author uses a shell implementation that sits in the tray. It stores/gets the password from gnome-keyring.</li>
-<li>A <a href="http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD">javascript implementation</a> also exists, for when both your computer and your cellphone are out of reach.</li>
 </ul>
 <h2 id="upcoming-features">Upcoming features</h2>
 <p>Currently, if one of your generated password is compromised, there is no way to change it in Hpass without changing your master password. To solve this problem, next versions of Hpass should include a concept of password version. The password version will be number, starting at 0 and being incremented everytime you want to change this password only. Hpass would remember this number and use it in the password generation.</p>

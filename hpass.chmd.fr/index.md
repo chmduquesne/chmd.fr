@@ -1,19 +1,34 @@
 Hpass
 =====
 
-TL,DR: where is the mobile version?
------------------------------------
+Intro
+-----
 
-[Here](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+Most people know they ought to be using a real password manager, but they
+don't, because they are afraid:
+- of not having their passwords when they need them
+- of losing their encrypted passwords because of hardware failure
 
-Summary
--------
+Hpass is a password manager that does not store passwords. Instead, it
+generates them. You provide it with a **master password** and a **domain
+name**, and it returns a secure password for you to use with that domain.
 
-Hpass allows you to generate different passwords for every websites while
-having to memorize only one **unique** master password. The generation is
-deterministic, such that you can always find your password from your
-master password and the name of the website, without storing any data on
-your computer. You are thus protected against data loss.
+Implementations
+---------------
+
+Because we need our passwords in different situations, Hpass is
+implemented for several platforms:
+
+  - There's an [android
+    version](https://play.google.com/store/apps/details?id=fr.chmd.hpass).
+    It will open links shared from the browsers, but it can also open a
+    link scanned through a barcode (provided you did not already set a
+    default browser).
+  - On a day to day basis, the author uses a shell implementation that
+    sits in the tray. It stores/gets the password from gnome-keyring.
+  - A [javascript implementation](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
+    also exists, for when both your computer and your cellphone are out of
+    reach.
 
 Inspiration
 -----------
@@ -48,23 +63,6 @@ Where:
   * \$MASTER is your master password;
   * and \$LEN is the length of the desired password.
 
-Implementations
----------------
-
-Because we need our passwords in different situations, Hpass is
-implemented for several platforms:
-
-  - There's an [android
-    version](https://play.google.com/store/apps/details?id=fr.chmd.hpass).
-    It will open links shared from the browsers, but it can also open a
-    link scanned through a barcode (provided you did not already set a
-    default browser).
-  - On a day to day basis, the author uses a shell implementation that
-    sits in the tray. It stores/gets the password from gnome-keyring.
-  - A [javascript implementation](http://git.chmd.fr/?p=hpass.git;a=blob_plain;f=js/index.html;hb=HEAD)
-    also exists, for when both your computer and your cellphone are out of
-    reach.
-
 Upcoming features
 -----------------
 
@@ -92,7 +90,6 @@ You can browse the code on
 it:
 
     git clone http://git.chmd.fr/hpass.git
-
 
 License/Credits
 -------
