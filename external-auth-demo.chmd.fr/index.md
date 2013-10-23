@@ -44,12 +44,12 @@ Howto
             ...
         }
 
-4. We now need to set up an authentication page. By default, the script
+4. We need to set up an authentication page. By default, the script
    redirects unauthenticated users to the page `/login.php`. For now, we
    will follow these defaults. We will first copy the file
    [magnet.php](http://fix.me) to the document-root.
 
-5. We now edit
+5. We now edit `login.php`, the page that
 
 
 

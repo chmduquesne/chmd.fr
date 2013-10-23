@@ -1,12 +1,17 @@
 <?php
 require_once('magnet.php');
-if (isset($_POST["authentify"])){
+if (isset($_POST["login"])){
     magnet_authentify('Guest');
     if (isset($_GET["orig_url"])) {
         $orig_url = $_GET["orig_url"];
         if (matches_domain($orig_url)) {
             header("Location: $orig_url");
         }
+    }
+}
+else {
+    if (isset($_POST["logout"])){
+        magnet_deauthentify();
     }
 }
 ?>
@@ -18,6 +23,9 @@ if (isset($_POST["authentify"])){
 <body>
 </form>
     <form action="" method="post">
-        <button name="authentify" value="authentify">authentify me!</button>
+        <button name="login" value="login">login</button>
+    <form>
+    <form action="" method="post">
+        <button name="logout" value="logout">logout</button>
     <form>
 </body>
