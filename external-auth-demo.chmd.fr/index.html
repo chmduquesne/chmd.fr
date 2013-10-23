@@ -1,7 +1,12 @@
 <h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
 <h2 id="summary">Summary</h2>
 <p><code>external-auth.lua</code> is a magnet script originally written in order to allow access control to certain pages of a lighttpd server through an openid-based authentication mechanism. But it can do much more: actually, any external means of authentication (such as oauth or even ldap) can be used with this script.</p>
-<h2 id="howto">Howto</h2>
+<h2 id="demos">Demos</h2>
+<ul>
+<li><a href="/demo1">demo 1</a>: This page is protected by a lame login page with no security whatsoever.</li>
+<li><a href="/demo2">demo 2</a>: This page is protected via a login page, that requires you to oauth or openid to see the content.</li>
+</ul>
+<h2 id="howto-demo1-the-basics">Howto demo1: The basics</h2>
 <ol style="list-style-type: decimal">
 <li><p>You first need to install the script <a href="http://fix.me">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
 <li><p>Then, activate <code>mod_setenv</code> and <code>mod_magnet</code> in <code>/etc/lighttpd/lighttpd.conf</code></p>
@@ -21,15 +26,57 @@
     }
     ...
 }</code></pre></li>
-<li><p>We now need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="http://fix.me">magnet.php</a> to the document-root.</p></li>
-<li><p>We now edit</p></li>
+<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="http://fix.me">magnet.php</a> to the document-root.</p></li>
+<li><p>We now edit <code>login.php</code>, the page that actually performs the login.</p>
+<pre><code>&lt;?php
+// We need the functions in the script &#39;magnet.php&#39;, that we installed
+// along with our login page
+require_once(&#39;magnet.php&#39;);
+
+// If we receive a POST &quot;login=Guest&quot;, the login is performed
+if (isset($_POST[&quot;login&quot;])){
+    if ($_POST[&quot;login&quot;] == &quot;Guest&quot;) {
+        magnet_authentify(&quot;Guest&quot;);
+    }
+    if (isset($_GET[&quot;orig_url&quot;])) {
+        $orig_url = $_GET[&quot;orig_url&quot;];
+        if (matches_domain($orig_url)) {
+            header(&quot;Location: $orig_url&quot;);
+        }
+    }
+}
+// If the users POSTs logout, the logout is performed
+else {
+    if (isset($_POST[&quot;logout&quot;])){
+        magnet_deauthentify();
+    }
+}
+// The rest is just html with two buttons, login and logout, that POST
+// the appropriate values.
+?&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;login&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/form&gt;
+    &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+        &lt;button name=&quot;login&quot; value=&quot;Guest&quot;&gt;login as &quot;Guest&quot;&lt;/button&gt;
+    &lt;form&gt;
+    &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+        &lt;button name=&quot;logout&quot; value=&quot;logout&quot;&gt;logout&lt;/button&gt;
+    &lt;form&gt;
+&lt;/body&gt;</code></pre></li>
+<li><p>That is it! You can now try to visit <a href="https://external-auth-demo.chmd.fr/demo1">demo1</a>. You should be redirected to your first login page.</p></li>
 </ol>
+<h2 id="howto-demo2-access-control">Howto demo2: Access Control</h2>
+<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="https://external-auth-demo.chmd.fr/demo1">http://external-auth-demo.chmd.fr/demo2</a>.</p>
 <h1 id="goal-of-this-magnet-script">Goal of this magnet script</h1>
 <p>The goal of this magnet script is to let you restrict access of certain pages of your lighttpd server through an external mechanism. This external mechanism can be openid, but also oauth, or any other method.</p>
 <h1 id="how-it-works">How it works</h1>
 <p>When a request is made, the script checks for a cookie.</p>
 <ul>
-<li><p><a href="/demo1">demo 1</a></p></li>
-<li><a href="/demo2">demo 2</a></li>
-<li><p><a href="/demo3">demo 3</a></p></li>
+<li><a href="/demo3">demo 3</a></li>
 </ul>
