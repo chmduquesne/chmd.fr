@@ -1,18 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title></title>
-</head>
-<body>
-<h1 id="lighttpd-external-auth-demo">Lighttpd external-auth demo</h1>
-<p>Welcome to the lighttpd external-auth demo website:</p>
+<h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
+<h2 id="summary">Summary</h2>
+<p><code>external-auth.lua</code> is a magnet script originally written in order to allow access control to certain pages of a lighttpd server through an openid-based authentication mechanism. But it can do much more: actually, any external means of authentication (such as oauth or even ldap) can be used with this script.</p>
+<h2 id="howto">Howto</h2>
+<ol style="list-style-type: decimal">
+<li><p>You first need to install the script <a href="http://fix.me">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
+<li><p>Then, activate <code>mod_setenv</code> and <code>mod_magnet</code> in <code>/etc/lighttpd/lighttpd.conf</code></p>
+<pre><code>server.modules = (
+    ...
+    &quot;mod_setenv&quot;,
+    &quot;mod_magnet&quot;,
+    ...
+)</code></pre></li>
+<li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://external-auth-demo.chmd.fr/demo1">http://external-auth-demo.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional.</p>
+<pre><code>$HTTP[&quot;host&quot;] == &quot;external-auth-demo.chmd.fr&quot; {
+    server.document-root = &quot;/home/www/sites/external-auth-demo.chmd.fr/&quot;
+    $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
+            magnet.attract-physical-path-to = (
+            &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
+        }
+    }
+    ...
+}</code></pre></li>
+<li><p>We now need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="http://fix.me">magnet.php</a> to the document-root.</p></li>
+<li><p>We now edit</p></li>
+</ol>
+<h1 id="goal-of-this-magnet-script">Goal of this magnet script</h1>
+<p>The goal of this magnet script is to let you restrict access of certain pages of your lighttpd server through an external mechanism. This external mechanism can be openid, but also oauth, or any other method.</p>
+<h1 id="how-it-works">How it works</h1>
+<p>When a request is made, the script checks for a cookie.</p>
 <ul>
-<li><a href="/demo1">demo 1</a></li>
+<li><p><a href="/demo1">demo 1</a></p></li>
 <li><a href="/demo2">demo 2</a></li>
-<li><a href="/demo3">demo 3</a></li>
+<li><p><a href="/demo3">demo 3</a></p></li>
 </ul>
-</body>
-</html>
