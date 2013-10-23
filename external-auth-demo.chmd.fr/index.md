@@ -14,7 +14,8 @@ Demos
 -----
 * [demo 1](/demo1): This page is protected by a lame login page with no
   security whatsoever.
-* [demo 2](/demo2): This page is protected via a login page, that requires
+* [demo 2](/demo2): This page demonstrates access control.
+* [demo 3](/demo3): This page is protected via a login page, that requires
   you to oauth or openid to see the content.
 
 Howto demo1: The basics
