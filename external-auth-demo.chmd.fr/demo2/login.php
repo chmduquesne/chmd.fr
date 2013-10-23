@@ -8,6 +8,9 @@ if (isset($_POST["login"])){
     if ($_POST["login"] == "Guest") {
         magnet_authentify("Guest");
     }
+    if ($_POST["login"] == "VIP") {
+        magnet_authentify("VIP");
+    }
     if (isset($_GET["orig_url"])) {
         $orig_url = $_GET["orig_url"];
         if (matches_domain($orig_url)) {
@@ -34,6 +37,9 @@ else {
 </form>
     <form action="" method="post">
         <button name="login" value="Guest">login as "Guest"</button>
+    <form>
+    <form action="" method="post">
+        <button name="login" value="VIP">login as "VIP"</button>
     <form>
     <form action="" method="post">
         <button name="logout" value="logout">logout</button>
