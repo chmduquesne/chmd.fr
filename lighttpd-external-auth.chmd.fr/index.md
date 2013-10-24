@@ -105,7 +105,7 @@ Howto demo1: The basics
                 url.redirect = ("^/.*" => "https://lighttpd-external-auth.chmd.fr$0")
             }
             
-            # Conditional
+            # Conditional where we load the script
             $HTTP["url"] =~ "/demo1.*" {
                     magnet.attract-physical-path-to = (
                     "/etc/lighttpd/lua/external-auth.lua" )
@@ -171,6 +171,40 @@ Howto demo2: Access Control
 The next step will be about limiting the access to some users. We now want
 to protect the urls starting with
 [http://lighttpd-external-auth.chmd.fr/demo2](/demo2), and give
-access to "VIP", but not to "Guest".
+access to "VIP", but not to "Guest". This is done by having the script
+load extra lua code. To tell the script what lua code to load, we use
+environment variables.
+
+1. Make a second lighttpd conditional for filtering demo2, and load the
+   script with `magnet-attract-physical-path-to`:
+
+        $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+        ...
+            $HTTP["url"] =~ "/demo2.*" {
+                $HTTP["url"] != "/demo2/login.php" {
+                    magnet.attract-physical-path-to = (
+                    "/etc/lighttpd/lua/external-auth.lua" )
+                }
+            }
+
+2. BEFORE loading the script, set the environment variable
+   `EXTERNAL_AUTH_CONFIG` to tell the script where to load our extra lua
+   code from. We will put the code in the file
+   `/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua`
+
+        $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+        ...
+            $HTTP["url"] =~ "/demo2.*" {
+                $HTTP["url"] != "/demo2/login.php" {
+                    setenv.add-environment = ( "EXTERNAL_AUTH_CONFIG" =>
+                    "/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua" )
+                    magnet.attract-physical-path-to = (
+                    "/etc/lighttpd/lua/external-auth.lua" )
+                }
+            }
+
+3. Edit 
+
+
 
 

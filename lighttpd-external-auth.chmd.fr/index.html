@@ -58,7 +58,7 @@ sudo luarocks install lbase64</code></pre></li>
         url.redirect = (&quot;^/.*&quot; =&gt; &quot;https://lighttpd-external-auth.chmd.fr$0&quot;)
     }
 
-    # Conditional
+    # Conditional where we load the script
     $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
             magnet.attract-physical-path-to = (
             &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
@@ -111,6 +111,29 @@ else {
 </ol>
 <p>That is it!</p>
 <h2 id="howto-demo2-access-control">Howto demo2: Access Control</h2>
-<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="/demo2">http://lighttpd-external-auth.chmd.fr/demo2</a>, and give access to &quot;VIP&quot;, but not to &quot;Guest&quot;.</p>
+<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="/demo2">http://lighttpd-external-auth.chmd.fr/demo2</a>, and give access to &quot;VIP&quot;, but not to &quot;Guest&quot;. This is done by having the script load extra lua code. To tell the script what lua code to load, we use environment variables.</p>
+<ol style="list-style-type: decimal">
+<li><p>Make a second lighttpd conditional for filtering demo2, and load the script with <code>magnet-attract-physical-path-to</code>:</p>
+<pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
+...
+    $HTTP[&quot;url&quot;] =~ &quot;/demo2.*&quot; {
+        $HTTP[&quot;url&quot;] != &quot;/demo2/login.php&quot; {
+            magnet.attract-physical-path-to = (
+            &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
+        }
+    }</code></pre></li>
+<li><p>BEFORE loading the script, set the environment variable <code>EXTERNAL_AUTH_CONFIG</code> to tell the script where to load our extra lua code from. We will put the code in the file <code>/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua</code></p>
+<pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
+...
+    $HTTP[&quot;url&quot;] =~ &quot;/demo2.*&quot; {
+        $HTTP[&quot;url&quot;] != &quot;/demo2/login.php&quot; {
+            setenv.add-environment = ( &quot;EXTERNAL_AUTH_CONFIG&quot; =&gt;
+            &quot;/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua&quot; )
+            magnet.attract-physical-path-to = (
+            &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
+        }
+    }</code></pre></li>
+<li><p>Edit</p></li>
+</ol>
 </body>
 </html>
