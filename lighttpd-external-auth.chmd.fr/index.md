@@ -54,9 +54,9 @@ Howto demo1: The basics
 -----------------------
 
 1. You first need to install the script
-   [external-auth.lua](http://fix.me). We will copy it to
-   `/etc/lighttpd/lua/external-auth.lua`, but any path readable by
-   lighttpd would work.
+   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD).
+   We will copy it to `/etc/lighttpd/lua/external-auth.lua`, but any path
+   readable by lighttpd would work.
 
 2. Then, activate `mod_setenv` and `mod_magnet` in
    `/etc/lighttpd/lighttpd.conf`
@@ -87,7 +87,8 @@ Howto demo1: The basics
 4. We need to set up an authentication page. By default, the script
    redirects unauthenticated users to the page `/login.php`. For now, we
    will follow these defaults. We will first copy the file
-   [magnet.php](http://fix.me) to the document-root.
+   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php;hb=839424ae7fa7a83018d81f56c9a142bb4fb6b006)
+   to the document-root.
 
 5. We now edit `login.php`, the page that actually performs the login.
 
@@ -133,8 +134,7 @@ Howto demo1: The basics
             <form>
         </body>
 
-6. That is it! You can now try to visit
-   [demo1](https://lighttpd-external-auth.chmd.fr/demo1). You should be
+6. That is it! You can now try to visit [demo1](/demo1). You should be
    redirected to your first login page.
 
 Howto demo2: Access Control
@@ -142,6 +142,6 @@ Howto demo2: Access Control
 
 The next step will be about limiting the access to some users. We now want
 to protect the urls starting with
-[http://lighttpd-external-auth.chmd.fr/demo2](https://lighttpd-external-auth.chmd.fr/demo1).
+[http://lighttpd-external-auth.chmd.fr/demo2](/demo2).
 
 
