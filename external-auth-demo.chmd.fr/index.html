@@ -9,8 +9,9 @@
 </head>
 <body>
 <h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
+<p>Access control via openid, oauth and others.</p>
 <h2 id="summary">Summary</h2>
-<p><code>external-auth.lua</code> is a magnet script originally written in order to allow access control to certain pages of a lighttpd server through an openid-based authentication mechanism. But it can do much more: actually, any external means of authentication (such as oauth or even ldap) can be used with this script.</p>
+<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a> is a lua magnet script originally written in order to control access in a lighttpd server via an openid-based authentication mechanism. But it can do much more: actually, any external means of authentication (such as oauth or even ldap) can be used with this script.</p>
 <h2 id="demos">Demos</h2>
 <ul>
 <li><a href="/demo1">demo 1</a>: This page is protected by a lame login page with no security whatsoever.</li>
@@ -92,12 +93,5 @@ else {
 </ol>
 <h2 id="howto-demo2-access-control">Howto demo2: Access Control</h2>
 <p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="https://external-auth-demo.chmd.fr/demo1">http://external-auth-demo.chmd.fr/demo2</a>.</p>
-<h1 id="goal-of-this-magnet-script">Goal of this magnet script</h1>
-<p>The goal of this magnet script is to let you restrict access of certain pages of your lighttpd server through an external mechanism. This external mechanism can be openid, but also oauth, or any other method.</p>
-<h1 id="how-it-works">How it works</h1>
-<p>When a request is made, the script checks for a cookie.</p>
-<ul>
-<li><a href="/demo3">demo 3</a></li>
-</ul>
 </body>
 </html>

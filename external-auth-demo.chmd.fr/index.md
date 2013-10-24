@@ -1,14 +1,16 @@
 Lighttpd external-auth
 ======================
 
+Access control via openid, oauth and others.
+
 Summary
 -------
 
-`external-auth.lua` is a magnet script originally written in order to
-allow access control to certain pages of a lighttpd server through an
-openid-based authentication mechanism. But it can do much more: actually,
-any external means of authentication (such as oauth or even ldap) can be
-used with this script.
+[external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD)
+is a lua magnet script originally written in order to control access in a
+lighttpd server via an openid-based authentication mechanism. But it can
+do much more: actually, any external means of authentication (such as
+oauth or even ldap) can be used with this script.
 
 Demos
 -----
@@ -143,23 +145,3 @@ to protect the urls starting with
 [http://external-auth-demo.chmd.fr/demo2](https://external-auth-demo.chmd.fr/demo1).
 
 
-
-
-
-
-
-Goal of this magnet script
-==========================
-
-The goal of this magnet script is to let you restrict access of certain
-pages of your lighttpd server through an external mechanism. This external
-mechanism can be openid, but also oauth, or any other method.
-
-How it works
-============
-
-When a request is made, the script checks for a cookie.
-
-
-
-* [demo 3](/demo3)
