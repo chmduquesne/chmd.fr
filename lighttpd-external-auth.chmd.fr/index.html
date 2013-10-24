@@ -21,7 +21,7 @@
 <ul>
 <li><a href="/demo1">demo 1</a>: This page is protected by a lame login page. POST-ing &quot;login=Guest&quot; signs you on as &quot;Guest&quot;, and POST-ing &quot;logout=logout&quot; signs you off.</li>
 <li><a href="/demo2">demo 2</a>: This page demonstrates per-user access control. You cannot login as &quot;Guest&quot;, but you can do it as &quot;VIP&quot;.</li>
-<li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. Then come back and visit the demo. Before accessing it, you will be presented with a nice login page that actually performs some openid/oauth checks.</li>
+<li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. Then come back and visit the link. Before accessing it, you will be presented with a nice login page that actually performs some openid/oauth checks.</li>
 </ul>
 <h2 id="sourcelicense">Source/License</h2>
 <p>Source available at <a href="https://git.chmd.fr/?p=lighttpd-external-auth">git.chmd.fr</a>, mirrored on <a href="https://github.com/chmduquesne/lighttpd-external-auth">github</a>.</p>
@@ -33,7 +33,7 @@
 <li>On the login page, the user goes through an authentication process. This part has actually nothing to do with this script. The only thing that matters is that, at the end of this authentication process, when the authentication is successful, the login page sets the appropriate username and authentication token in the cookies of the user's browser, and then redirects the user to the original url.</li>
 <li>This time, when the script checks, it finds the username and the authentication token in the user's cookies. It checks that the token is valid, then checks that this username is allowed to access the content. If both conditions are satisfied, the script stops there and lets lighttpd deliver the content normally.</li>
 </ol>
-<p>The authentication token that is mentioned in this work flow is a hmac-sha1 signature, where the message to be signed is the username appended with a timestamp (the user will be allowed to access the content only within the time window where this timestamp is considered valid), and the secret is a random string that is shared between the magnet and the login page. This random string is initialized when the magnet script is loaded for the first time and is stored in a file, such that the login page can read it. Obviously, this means that the login page has somehow to be on the same lighttpd server.</p>
+<p>The authentication token that is mentioned in this work flow is a hmac-sha1 signature, where the message to be signed is the username appended with a timestamp (the user will be allowed to access the content only within the time window where this timestamp is considered valid), and the secret is a random string that is shared between the magnet and the login page. This random string is initialized when the magnet script is loaded for the first time and is stored in a file, such that the login page can read it. Obviously, this means that the login page has to be hosted to be on the same lighttpd server, so that it can read the shared secret.</p>
 <h2 id="howto-demo1-the-basics">Howto demo1: The basics</h2>
 <ol style="list-style-type: decimal">
 <li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
@@ -50,7 +50,15 @@ sudo luarocks install lbase64</code></pre></li>
 )</code></pre></li>
 <li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://lighttpd-external-auth.chmd.fr/demo1">http://lighttpd-external-auth.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional:</p>
 <pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
+    # Set the document root
     server.document-root = &quot;/home/www/sites/lighttpd-external-auth.chmd.fr/&quot;
+
+    # Force https
+    $HTTP[&quot;scheme&quot;] == &quot;http&quot; {
+        url.redirect = (&quot;^/.*&quot; =&gt; &quot;https://lighttpd-external-auth.chmd.fr$0&quot;)
+    }
+
+    # Conditional
     $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
             magnet.attract-physical-path-to = (
             &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
@@ -58,8 +66,7 @@ sudo luarocks install lbase64</code></pre></li>
     }
     ...
 }</code></pre></li>
-<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php">magnet.php</a> to the document-root.</p></li>
-<li><p>We now edit <code>login.php</code>, the page that actually performs the login.</p>
+<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php">magnet.php</a> to the document-root. Then, we edit <code>login.php</code>, the page that actually performs the login.</p>
 <pre><code>&lt;?php
 // We need the functions in the script &#39;magnet.php&#39;, that we installed
 // along with our login page
@@ -101,9 +108,9 @@ else {
         &lt;button name=&quot;logout&quot; value=&quot;logout&quot;&gt;logout&lt;/button&gt;
     &lt;form&gt;
 &lt;/body&gt;</code></pre></li>
-<li><p>That is it! You can now try to visit <a href="/demo1">demo1</a>. You should be redirected to your first login page.</p></li>
 </ol>
+<p>That is it!</p>
 <h2 id="howto-demo2-access-control">Howto demo2: Access Control</h2>
-<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="/demo2">http://lighttpd-external-auth.chmd.fr/demo2</a>.</p>
+<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="/demo2">http://lighttpd-external-auth.chmd.fr/demo2</a>, and give access to &quot;VIP&quot;, but not to &quot;Guest&quot;.</p>
 </body>
 </html>

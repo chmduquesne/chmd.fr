@@ -22,7 +22,7 @@ Demos
   cannot login as "Guest", but you can do it as "VIP".
 * [demo 3](/demo3): Before trying this one, you should
   [logout](https://login.chmd.fr/?logout=true), because no access control
-  will performed. Then come back and visit the demo.  Before accessing it,
+  will performed. Then come back and visit the link. Before accessing it,
   you will be presented with a nice login page that actually performs some
   openid/oauth checks.
 
@@ -63,8 +63,9 @@ only within the time window where this timestamp is considered valid), and
 the secret is a random string that is shared between the magnet and the
 login page. This random string is initialized when the magnet script is
 loaded for the first time and is stored in a file, such that the login
-page can read it.  Obviously, this means that the login page has somehow
-to be on the same lighttpd server.
+page can read it.  Obviously, this means that the login page has to be
+hosted to be on the same lighttpd server, so that it can read the shared
+secret.
 
 Howto demo1: The basics
 -----------------------
@@ -96,7 +97,15 @@ Howto demo1: The basics
    the conditional:
 
         $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+            # Set the document root
             server.document-root = "/home/www/sites/lighttpd-external-auth.chmd.fr/"
+            
+            # Force https
+            $HTTP["scheme"] == "http" {
+                url.redirect = ("^/.*" => "https://lighttpd-external-auth.chmd.fr$0")
+            }
+            
+            # Conditional
             $HTTP["url"] =~ "/demo1.*" {
                     magnet.attract-physical-path-to = (
                     "/etc/lighttpd/lua/external-auth.lua" )
@@ -109,9 +118,8 @@ Howto demo1: The basics
    redirects unauthenticated users to the page `/login.php`. For now, we
    will follow these defaults. We will first copy the file
    [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php)
-   to the document-root.
-
-5. We now edit `login.php`, the page that actually performs the login.
+   to the document-root. Then, we edit `login.php`, the page that actually
+   performs the login.
 
         <?php
         // We need the functions in the script 'magnet.php', that we installed
@@ -155,14 +163,14 @@ Howto demo1: The basics
             <form>
         </body>
 
-6. That is it! You can now try to visit [demo1](/demo1). You should be
-   redirected to your first login page.
+That is it!
 
 Howto demo2: Access Control
 ---------------------------
 
 The next step will be about limiting the access to some users. We now want
 to protect the urls starting with
-[http://lighttpd-external-auth.chmd.fr/demo2](/demo2).
+[http://lighttpd-external-auth.chmd.fr/demo2](/demo2), and give
+access to "VIP", but not to "Guest".
 
 
