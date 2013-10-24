@@ -18,6 +18,36 @@ Demos
 * [demo 3](/demo3): This page is protected via a login page, that requires
   you to oauth or openid to see the content.
 
+How does this work?
+-------------------
+Here is the basic work flow:
+
+1. The user tries to access protected content. The magnet script
+   intercepts the request and checks for a username and an authentication
+   token in the user's cookies. As no authentication has occurred yet, this
+   fails and the user is redirected to a login page.
+2. On the login page, the user goes through an authentication process.
+   This part has actually nothing to do with this script. The only thing
+   that matters is that, at the end of this authentication process, when
+   the authentication is successful, the login page sets the appropriate
+   username and authentication token in the cookies of the user's browser,
+   and then redirects the user to the original url.
+3. This time, when the script checks, it finds the username and the
+   authentication token in the user's cookies. It checks that the token is
+   valid, then checks that this username is allowed to access the content.
+   If both conditions are satisfied, the script stops there and lets
+   lighttpd deliver the content normally.
+
+The authentication token that is mentioned in this work flow is a
+hmac-sha1 signature, where the message to be signed is the username
+appended with a timestamp (the user will be allowed to access the content
+only within the time window where this timestamp is considered valid), and
+the secret is a random string that is shared between the magnet and the
+login page. This random string is initialized when the magnet script is
+loaded for the first time and is stored in a file, such that the login
+page can read it.  Obviously, this means that the login page has somehow
+to be on the same lighttpd server.
+
 Howto demo1: The basics
 -----------------------
 
