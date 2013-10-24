@@ -10,10 +10,11 @@
 <body>
 <h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
 <h2 id="summary">Summary</h2>
-<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a> is a lighttpd lua magnet script:</p>
+<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua">external-auth.lua</a> is a lighttpd magnet script:</p>
 <ul>
 <li>Originally written for openid</li>
 <li>Providing access control via openid, oauth and the likes</li>
+<li>Allowing per-user filtering</li>
 <li>Protecting static content / web apps unaware of security otherwise</li>
 </ul>
 <h2 id="demos">Demos</h2>
@@ -26,8 +27,7 @@
 <p>Source available at <a href="https://git.chmd.fr/?p=lighttpd-external-auth">git.chmd.fr</a>, mirrored on <a href="https://github.com/chmduquesne/lighttpd-external-auth">github</a>.</p>
 <pre><code>git clone https://git.chmd.fr/lighttpd-external-auth</code></pre>
 <p>License MIT</p>
-<h2 id="how-does-this-work">How does this work?</h2>
-<p>Here is the basic work flow:</p>
+<h2 id="work-flow">Work Flow</h2>
 <ol style="list-style-type: decimal">
 <li>The user tries to access protected content. The magnet script intercepts the request and checks for a username and an authentication token in the user's cookies. As no authentication has occurred yet, this fails and the user is redirected to a login page.</li>
 <li>On the login page, the user goes through an authentication process. This part has actually nothing to do with this script. The only thing that matters is that, at the end of this authentication process, when the authentication is successful, the login page sets the appropriate username and authentication token in the cookies of the user's browser, and then redirects the user to the original url.</li>
@@ -36,15 +36,19 @@
 <p>The authentication token that is mentioned in this work flow is a hmac-sha1 signature, where the message to be signed is the username appended with a timestamp (the user will be allowed to access the content only within the time window where this timestamp is considered valid), and the secret is a random string that is shared between the magnet and the login page. This random string is initialized when the magnet script is loaded for the first time and is stored in a file, such that the login page can read it. Obviously, this means that the login page has somehow to be on the same lighttpd server.</p>
 <h2 id="howto-demo1-the-basics">Howto demo1: The basics</h2>
 <ol style="list-style-type: decimal">
-<li><p>You first need to install the script <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
-<li><p>Then, activate <code>mod_setenv</code> and <code>mod_magnet</code> in <code>/etc/lighttpd/lighttpd.conf</code></p>
+<li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
+<li><p>Install the lua dependencies. On debian:</p>
+<pre><code>sudo aptitude install luarocks
+sudo luarocks install luacrypto
+sudo luarocks install lbase64</code></pre></li>
+<li><p>Activate <code>mod_setenv</code> and <code>mod_magnet</code> in <code>/etc/lighttpd/lighttpd.conf</code></p>
 <pre><code>server.modules = (
     ...
     &quot;mod_setenv&quot;,
     &quot;mod_magnet&quot;,
     ...
 )</code></pre></li>
-<li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://lighttpd-external-auth.chmd.fr/demo1">http://lighttpd-external-auth.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional.</p>
+<li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://lighttpd-external-auth.chmd.fr/demo1">http://lighttpd-external-auth.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional:</p>
 <pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
     server.document-root = &quot;/home/www/sites/lighttpd-external-auth.chmd.fr/&quot;
     $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
@@ -54,7 +58,7 @@
     }
     ...
 }</code></pre></li>
-<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php;hb=839424ae7fa7a83018d81f56c9a142bb4fb6b006">magnet.php</a> to the document-root.</p></li>
+<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php">magnet.php</a> to the document-root.</p></li>
 <li><p>We now edit <code>login.php</code>, the page that actually performs the login.</p>
 <pre><code>&lt;?php
 // We need the functions in the script &#39;magnet.php&#39;, that we installed

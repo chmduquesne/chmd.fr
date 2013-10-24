@@ -5,11 +5,12 @@ Lighttpd external-auth
 Summary
 -------
 
-[external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD)
-is a lighttpd lua magnet script:
+[external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua)
+is a lighttpd magnet script:
 
 - Originally written for openid
 - Providing access control via openid, oauth and the likes
+- Allowing per-user filtering
 - Protecting static content / web apps unaware of security otherwise
 
 Demos
@@ -35,9 +36,8 @@ Source available at
 
 License MIT
 
-How does this work?
--------------------
-Here is the basic work flow:
+Work Flow
+---------
 
 1. The user tries to access protected content. The magnet script
    intercepts the request and checks for a username and an authentication
@@ -68,13 +68,18 @@ to be on the same lighttpd server.
 Howto demo1: The basics
 -----------------------
 
-1. You first need to install the script
-   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD).
+1. Install
+   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua).
    We will copy it to `/etc/lighttpd/lua/external-auth.lua`, but any path
    readable by lighttpd would work.
 
-2. Then, activate `mod_setenv` and `mod_magnet` in
-   `/etc/lighttpd/lighttpd.conf`
+2. Install the lua dependencies. On debian:
+
+        sudo aptitude install luarocks
+        sudo luarocks install luacrypto
+        sudo luarocks install lbase64
+
+3. Activate `mod_setenv` and `mod_magnet` in `/etc/lighttpd/lighttpd.conf`
 
         server.modules = (
             ...
@@ -83,11 +88,11 @@ Howto demo1: The basics
             ...
         )
 
-3. Put the content you want to protect in a conditional. Here, we are
+4. Put the content you want to protect in a conditional. Here, we are
    going to protect every url starting with
    [http://lighttpd-external-auth.chmd.fr/demo1](https://lighttpd-external-auth.chmd.fr/demo1).
    To do so, we load the script with `magnet.attract-physical-path-to` in
-   the conditional.
+   the conditional:
 
         $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
             server.document-root = "/home/www/sites/lighttpd-external-auth.chmd.fr/"
@@ -99,10 +104,10 @@ Howto demo1: The basics
             ...
         }
 
-4. We need to set up an authentication page. By default, the script
+5. We need to set up an authentication page. By default, the script
    redirects unauthenticated users to the page `/login.php`. For now, we
    will follow these defaults. We will first copy the file
-   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php;hb=839424ae7fa7a83018d81f56c9a142bb4fb6b006)
+   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php)
    to the document-root.
 
 5. We now edit `login.php`, the page that actually performs the login.
