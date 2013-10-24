@@ -203,8 +203,126 @@ environment variables.
                 }
             }
 
-3. Edit 
+3. Edit
+   `/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua`.
+   There are mainly two settings that are interesting to modify: the
+   location of the login page, and the user authorized to see the content.
+   We are interested in the latter. Basically, if we don't specify
+   anything, everyone is authorize. However, if we want to filter users,
+   we initialize `config["authorized_identities"]` to an empty table, and
+   then we set `config["authorized_identities"]["VIP"]` to `true`. This
+   has the effect of authorizing the user "VIP" (and only this user) to
+   see the content protected by the script.
 
+        config["authorized_identities"] = { }
+        config["authorized_identities"]["VIP"] = true
 
+4. Since we can choose another location for the login page, let us put it
+   in `/demo2/login.php`. Edit
+   `/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua`
+   and assign the variable `config["login_url"]`:
 
+        config["login_url"] = "/demo2/login.php"
+        config["authorized_identities"] = { }
+        config["authorized_identities"]["VIP"] = true
 
+5. We have to be careful not to place the login page in an unreachable
+   place. Edit `/etc/lighttpd/lighttpd.conf`, and modify the conditional
+   such that this page is reachable:
+
+        $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+            ...
+            $HTTP["url"] =~ "/demo2.*" {
+                # make an exception for "/demo2/login.php"
+                $HTTP["url"] != "/demo2/login.php" {
+                    setenv.add-environment = ( "EXTERNAL_AUTH_CONFIG" =>
+                    "/etc/lighttpd/lua/external-auth/demo2.lighttpd-external-auth.chmd.fr.lua" )
+                    magnet.attract-physical-path-to = (
+                    "/etc/lighttpd/lua/external-auth.lua" )
+                }
+            }
+
+6. Last, create the login page `/demo2/login.php` (don't forget to copy
+   `magnet.php` in `demo2/`)
+
+        <?php
+        // We need the functions in the script 'magnet.php', that we installed
+        // along with our login page
+        require_once('magnet.php');
+        
+        // If we receive a POST "login=Guest", the login is performed
+        if (isset($_POST["login"])){
+            if ($_POST["login"] == "Guest") {
+                magnet_authentify("Guest");
+            }
+            if ($_POST["login"] == "VIP") {
+                magnet_authentify("VIP");
+            }
+            if (isset($_GET["orig_url"])) {
+                $orig_url = $_GET["orig_url"];
+                if (matches_domain($orig_url)) {
+                    header("Location: $orig_url");
+                }
+            }
+        }
+        // If the users POSTs logout, the logout is performed
+        else {
+            if (isset($_POST["logout"])){
+                magnet_deauthentify();
+            }
+        }
+        // The rest is just html with two buttons, login and logout, that POST
+        // the appropriate values.
+        ?>
+        
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>login</title>
+        </head>
+        <body>
+        </form>
+            <form action="" method="post">
+                <button name="login" value="Guest">login as "Guest"</button>
+            <form>
+            <form action="" method="post">
+                <button name="login" value="VIP">login as "VIP"</button>
+            <form>
+            <form action="" method="post">
+                <button name="logout" value="logout">logout</button>
+            <form>
+        </body>
+
+Done!
+
+Howto demo3: real openid/oauth
+------------------------------
+
+Ok, so we have written lame login pages. What about openid and oauth? As you
+might expect, login pages can get a little bit fancy and complicated, so we
+will not get into many details. This project provides such a login page (a copy
+of the one that lives on [login.chmd.fr](https://login.chmd.fr)). It protects
+[demo3](/demo3) How to set it up is explained in the README files of
+[example-loginpage](https://git.chmd.fr/?p=lighttpd-external-auth;a=tree;f=example-loginpage).
+We will just quickly give the configuration:
+
+1. `/etc/lighttpd/lighttpd.conf`
+
+        $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+            ...
+            $HTTP["url"] =~ "/demo3.*" {
+                setenv.add-environment = ( "EXTERNAL_AUTH_CONFIG" =>
+                "/etc/lighttpd/lua/external-auth/demo3.lighttpd-external-auth.chmd.fr.lua" )
+                magnet.attract-physical-path-to = (
+                "/etc/lighttpd/lua/external-auth.lua" )
+            }
+        }
+
+2. `/etc/lighttpd/lua/external-auth/demo3.lighttpd-external-auth.chmd.fr.lua`
+
+        config["login_url"] = "https://login.chmd.fr"
+
+Conclusion
+----------
+
+Have fun with this!
