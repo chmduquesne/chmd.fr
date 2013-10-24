@@ -21,9 +21,10 @@ Demos
 * [demo 2](/demo2): This page demonstrates per-user access control. You
   cannot login as "Guest", but you can do it as "VIP".
 * [demo 3](/demo3): Before trying this one, you should
-  [logout](https://login.chmd.fr/?logout=true), because
-  no access control will performed. It presents you with a nice login page
-  that actually performs some openid/oauth checks.
+  [logout](https://login.chmd.fr/?logout=true), because no access control
+  will performed. Then come back and visit the demo.  Before accessing it,
+  you will be presented with a nice login page that actually performs some
+  openid/oauth checks.
 
 Source/License
 --------------
