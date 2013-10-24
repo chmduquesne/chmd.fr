@@ -12,10 +12,9 @@
 <h2 id="summary">Summary</h2>
 <p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a> is a lighttpd lua magnet script:</p>
 <ul>
-<li>That was originally written for openid</li>
-<li>That provides access control via openid, oauth and the likes</li>
-<li>That can protect static content</li>
-<li>That can protect web apps unaware of security otherwise</li>
+<li>Originally written for openid</li>
+<li>Providing access control via openid, oauth and the likes</li>
+<li>Protecting static content / web apps unaware of security otherwise</li>
 </ul>
 <h2 id="demos">Demos</h2>
 <ul>
@@ -23,6 +22,10 @@
 <li><a href="/demo2">demo 2</a>: This page demonstrates per-user access control. You cannot login as &quot;Guest&quot;, but you can do it as &quot;VIP&quot;.</li>
 <li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. It presents you with a nice login page that actually performs some openid/oauth checks.</li>
 </ul>
+<h2 id="sourcelicense">Source/License</h2>
+<p>Source available at <a href="https://git.chmd.fr/?p=lighttpd-external-auth">git.chmd.fr</a>, mirrored on <a href="https://github.com/chmduquesne/lighttpd-external-auth">github</a>.</p>
+<pre><code>git clone https://git.chmd.fr/lighttpd-external-auth</code></pre>
+<p>License MIT</p>
 <h2 id="how-does-this-work">How does this work?</h2>
 <p>Here is the basic work flow:</p>
 <ol style="list-style-type: decimal">

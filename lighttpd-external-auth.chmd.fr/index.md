@@ -8,10 +8,9 @@ Summary
 [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD)
 is a lighttpd lua magnet script:
 
-- That was originally written for openid
-- That provides access control via openid, oauth and the likes
-- That can protect static content
-- That can protect web apps unaware of security otherwise
+- Originally written for openid
+- Providing access control via openid, oauth and the likes
+- Protecting static content / web apps unaware of security otherwise
 
 Demos
 -----
@@ -24,6 +23,17 @@ Demos
   [logout](https://login.chmd.fr/?logout=true), because
   no access control will performed. It presents you with a nice login page
   that actually performs some openid/oauth checks.
+
+Source/License
+--------------
+
+Source available at
+[git.chmd.fr](https://git.chmd.fr/?p=lighttpd-external-auth), mirrored on
+[github](https://github.com/chmduquesne/lighttpd-external-auth).
+
+    git clone https://git.chmd.fr/lighttpd-external-auth
+
+License MIT
 
 How does this work?
 -------------------
