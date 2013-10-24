@@ -9,14 +9,19 @@
 </head>
 <body>
 <h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
-<p>Access control via openid, oauth and others.</p>
 <h2 id="summary">Summary</h2>
-<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a> is a lua magnet script originally written in order to control access in a lighttpd server via an openid-based authentication mechanism. But it can do much more: actually, any external means of authentication (such as oauth or even ldap) can be used with this script.</p>
+<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD">external-auth.lua</a> is a lighttpd lua magnet script:</p>
+<ul>
+<li>That was originally written for openid</li>
+<li>That provides access control via openid, oauth and the likes</li>
+<li>That can protect static content</li>
+<li>That can protect web apps unaware of security otherwise</li>
+</ul>
 <h2 id="demos">Demos</h2>
 <ul>
-<li><a href="/demo1">demo 1</a>: This page is protected by a lame login page with no security whatsoever.</li>
-<li><a href="/demo2">demo 2</a>: This page demonstrates access control.</li>
-<li><a href="/demo3">demo 3</a>: This page is protected via a login page, that requires you to oauth or openid to see the content.</li>
+<li><a href="/demo1">demo 1</a>: This page is protected by a lame login page. POST-ing &quot;login=Guest&quot; signs you on as &quot;Guest&quot;, and POST-ing &quot;logout=logout&quot; signs you off.</li>
+<li><a href="/demo2">demo 2</a>: This page demonstrates per-user access control. You cannot login as &quot;Guest&quot;, but you can do it as &quot;VIP&quot;.</li>
+<li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. It presents you with a nice login page that actually performs some openid/oauth checks.</li>
 </ul>
 <h2 id="how-does-this-work">How does this work?</h2>
 <p>Here is the basic work flow:</p>

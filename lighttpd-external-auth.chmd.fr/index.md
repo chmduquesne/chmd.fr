@@ -1,24 +1,29 @@
 Lighttpd external-auth
 ======================
 
-Access control via openid, oauth and others.
 
 Summary
 -------
 
 [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua;hb=HEAD)
-is a lua magnet script originally written in order to control access in a
-lighttpd server via an openid-based authentication mechanism. But it can
-do much more: actually, any external means of authentication (such as
-oauth or even ldap) can be used with this script.
+is a lighttpd lua magnet script:
+
+- That was originally written for openid
+- That provides access control via openid, oauth and the likes
+- That can protect static content
+- That can protect web apps unaware of security otherwise
 
 Demos
 -----
-* [demo 1](/demo1): This page is protected by a lame login page with no
-  security whatsoever.
-* [demo 2](/demo2): This page demonstrates access control.
-* [demo 3](/demo3): This page is protected via a login page, that requires
-  you to oauth or openid to see the content.
+* [demo 1](/demo1): This page is protected by a lame login page. POST-ing
+  "login=Guest" signs you on as "Guest", and POST-ing "logout=logout"
+  signs you off.
+* [demo 2](/demo2): This page demonstrates per-user access control. You
+  cannot login as "Guest", but you can do it as "VIP".
+* [demo 3](/demo3): Before trying this one, you should
+  [logout](https://login.chmd.fr/?logout=true), because
+  no access control will performed. It presents you with a nice login page
+  that actually performs some openid/oauth checks.
 
 How does this work?
 -------------------
