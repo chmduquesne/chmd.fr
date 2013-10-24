@@ -36,9 +36,9 @@
     &quot;mod_magnet&quot;,
     ...
 )</code></pre></li>
-<li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://external-auth-demo.chmd.fr/demo1">http://external-auth-demo.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional.</p>
-<pre><code>$HTTP[&quot;host&quot;] == &quot;external-auth-demo.chmd.fr&quot; {
-    server.document-root = &quot;/home/www/sites/external-auth-demo.chmd.fr/&quot;
+<li><p>Put the content you want to protect in a conditional. Here, we are going to protect every url starting with <a href="https://lighttpd-external-auth.chmd.fr/demo1">http://lighttpd-external-auth.chmd.fr/demo1</a>. To do so, we load the script with <code>magnet.attract-physical-path-to</code> in the conditional.</p>
+<pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
+    server.document-root = &quot;/home/www/sites/lighttpd-external-auth.chmd.fr/&quot;
     $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
             magnet.attract-physical-path-to = (
             &quot;/etc/lighttpd/lua/external-auth.lua&quot; )
@@ -89,9 +89,9 @@ else {
         &lt;button name=&quot;logout&quot; value=&quot;logout&quot;&gt;logout&lt;/button&gt;
     &lt;form&gt;
 &lt;/body&gt;</code></pre></li>
-<li><p>That is it! You can now try to visit <a href="https://external-auth-demo.chmd.fr/demo1">demo1</a>. You should be redirected to your first login page.</p></li>
+<li><p>That is it! You can now try to visit <a href="https://lighttpd-external-auth.chmd.fr/demo1">demo1</a>. You should be redirected to your first login page.</p></li>
 </ol>
 <h2 id="howto-demo2-access-control">Howto demo2: Access Control</h2>
-<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="https://external-auth-demo.chmd.fr/demo1">http://external-auth-demo.chmd.fr/demo2</a>.</p>
+<p>The next step will be about limiting the access to some users. We now want to protect the urls starting with <a href="https://lighttpd-external-auth.chmd.fr/demo1">http://lighttpd-external-auth.chmd.fr/demo2</a>.</p>
 </body>
 </html>

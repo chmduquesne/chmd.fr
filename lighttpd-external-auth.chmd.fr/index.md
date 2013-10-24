@@ -70,12 +70,12 @@ Howto demo1: The basics
 
 3. Put the content you want to protect in a conditional. Here, we are
    going to protect every url starting with
-   [http://external-auth-demo.chmd.fr/demo1](https://external-auth-demo.chmd.fr/demo1).
+   [http://lighttpd-external-auth.chmd.fr/demo1](https://lighttpd-external-auth.chmd.fr/demo1).
    To do so, we load the script with `magnet.attract-physical-path-to` in
    the conditional.
 
-        $HTTP["host"] == "external-auth-demo.chmd.fr" {
-            server.document-root = "/home/www/sites/external-auth-demo.chmd.fr/"
+        $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
+            server.document-root = "/home/www/sites/lighttpd-external-auth.chmd.fr/"
             $HTTP["url"] =~ "/demo1.*" {
                     magnet.attract-physical-path-to = (
                     "/etc/lighttpd/lua/external-auth.lua" )
@@ -134,7 +134,7 @@ Howto demo1: The basics
         </body>
 
 6. That is it! You can now try to visit
-   [demo1](https://external-auth-demo.chmd.fr/demo1). You should be
+   [demo1](https://lighttpd-external-auth.chmd.fr/demo1). You should be
    redirected to your first login page.
 
 Howto demo2: Access Control
@@ -142,6 +142,6 @@ Howto demo2: Access Control
 
 The next step will be about limiting the access to some users. We now want
 to protect the urls starting with
-[http://external-auth-demo.chmd.fr/demo2](https://external-auth-demo.chmd.fr/demo1).
+[http://lighttpd-external-auth.chmd.fr/demo2](https://lighttpd-external-auth.chmd.fr/demo1).
 
 
