@@ -52,12 +52,6 @@ sudo luarocks install lbase64</code></pre></li>
 <pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {
     # Set the document root
     server.document-root = &quot;/home/www/sites/lighttpd-external-auth.chmd.fr/&quot;
-
-    # Force https
-    $HTTP[&quot;scheme&quot;] == &quot;http&quot; {
-        url.redirect = (&quot;^/.*&quot; =&gt; &quot;https://lighttpd-external-auth.chmd.fr$0&quot;)
-    }
-
     # Conditional where we load the script
     $HTTP[&quot;url&quot;] =~ &quot;/demo1.*&quot; {
             magnet.attract-physical-path-to = (
@@ -158,11 +152,12 @@ config[&quot;authorized_identities&quot;][&quot;VIP&quot;] = true</code></pre></
 // along with our login page
 require_once(&#39;magnet.php&#39;);
 
-// If we receive a POST &quot;login=Guest&quot;, the login is performed
 if (isset($_POST[&quot;login&quot;])){
+    // If we receive POST &quot;login=Guest&quot;, we login as Guest
     if ($_POST[&quot;login&quot;] == &quot;Guest&quot;) {
         magnet_authentify(&quot;Guest&quot;);
     }
+    // If we receive POST &quot;login=VIP&quot;, we login as VIP
     if ($_POST[&quot;login&quot;] == &quot;VIP&quot;) {
         magnet_authentify(&quot;VIP&quot;);
     }
@@ -173,7 +168,7 @@ if (isset($_POST[&quot;login&quot;])){
         }
     }
 }
-// If the users POSTs logout, the logout is performed
+// If we receive POST logout, the logout is performed
 else {
     if (isset($_POST[&quot;logout&quot;])){
         magnet_deauthentify();

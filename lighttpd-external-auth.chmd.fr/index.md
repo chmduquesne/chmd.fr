@@ -99,12 +99,6 @@ Howto demo1: The basics
         $HTTP["host"] == "lighttpd-external-auth.chmd.fr" {
             # Set the document root
             server.document-root = "/home/www/sites/lighttpd-external-auth.chmd.fr/"
-            
-            # Force https
-            $HTTP["scheme"] == "http" {
-                url.redirect = ("^/.*" => "https://lighttpd-external-auth.chmd.fr$0")
-            }
-            
             # Conditional where we load the script
             $HTTP["url"] =~ "/demo1.*" {
                     magnet.attract-physical-path-to = (
@@ -250,11 +244,12 @@ environment variables.
         // along with our login page
         require_once('magnet.php');
         
-        // If we receive a POST "login=Guest", the login is performed
         if (isset($_POST["login"])){
+            // If we receive POST "login=Guest", we login as Guest
             if ($_POST["login"] == "Guest") {
                 magnet_authentify("Guest");
             }
+            // If we receive POST "login=VIP", we login as VIP
             if ($_POST["login"] == "VIP") {
                 magnet_authentify("VIP");
             }
@@ -265,7 +260,7 @@ environment variables.
                 }
             }
         }
-        // If the users POSTs logout, the logout is performed
+        // If we receive POST logout, the logout is performed
         else {
             if (isset($_POST["logout"])){
                 magnet_deauthentify();
