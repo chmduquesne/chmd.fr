@@ -26,10 +26,11 @@ body {
     color: #333;
 }
 pre {
-    border: 1px dotted gray;
+    border: 1px solid gray;
     background-color: #ececec;
     color: #1111111;
     padding: 0.5em;
+    border-radius: 3px;
 }
 code {
     font-family: monospace;
