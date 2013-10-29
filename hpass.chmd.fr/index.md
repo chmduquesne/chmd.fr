@@ -90,10 +90,23 @@ Supergenpass sucks in many aspects:
      available)
 
 License/Credits
--------
+---------------
 
 Useful informations:
 
   * Hpass is delivered under the GPLv3+.
   * The icon used for the Hpass android application is the 'lock' from the
     [faenza gtk icon theme](https://code.google.com/p/faenza-icon-theme).
+
+<div class="comments">
+<h2>Comments !</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_identifier = "hpass.chmd.fr";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//chmd.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+</div>
