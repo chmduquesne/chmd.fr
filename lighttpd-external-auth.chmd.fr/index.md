@@ -324,6 +324,7 @@ Have fun with this!
 
 <div class="comments">
 <h2>Comments</h2>
+    <script id='fbnrl3e'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=chmd&button=compact&url='+encodeURIComponent(document.URL);f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbnrl3e');</script>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_identifier = "lighttpd-external-auth.chmd.fr";
