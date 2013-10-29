@@ -1,18 +1,8 @@
-/*
- * Color theme:
- * sides: #C7E1BA
- * title: #757575
- * categories, links: #397249
- * bar before categories: #9CB770
- */
-
 html {
     background: #999;
 }
 
-/* Whole document */
 body {
-    width: 60%;
     background: #FFFFFF;
     margin: auto;
     padding-right: 1em;
@@ -24,6 +14,9 @@ body {
     font-size: 100%;
     line-height: 140%;
     color: #333;
+    width: 60%;
+    min-width: 400px;
+    min-height: 200px;
 }
 pre {
     border: 1px solid gray;
@@ -71,4 +64,3 @@ dd p {
     color: gray;
     text-align: center;
 }
-
