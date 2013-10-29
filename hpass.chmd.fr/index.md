@@ -99,7 +99,7 @@ Useful informations:
     [faenza gtk icon theme](https://code.google.com/p/faenza-icon-theme).
 
 <div class="comments">
-<h2>Comments !</h2>
+<h2>Comments</h2>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_identifier = "hpass.chmd.fr";
