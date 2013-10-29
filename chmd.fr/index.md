@@ -1,9 +1,19 @@
-chmd
-====
+Ch-M.D
+======
 
-Welcome to my spot on the web.
+Welcome to my personal website.
 
-* [blog](http://blog.chmd.fr)
-* [resume](http://resume.chmd.fr)
-* [repositories](http://git.chmd.fr)
+About me
+--------
+
 * [gpg key](gpg.html)
+* [resume](//resume.chmd.fr)
+* [blog](//blog.chmd.fr)
+
+(Some) projects
+---------------
+
+* [repositories](//git.chmd.fr)
+* [hpass](//minibackup.chmd.fr)
+* [minibackup](//minibackup.chmd.fr)
+* [lighttpd-external-auth](//lighttpd-external-auth.chmd.fr)
