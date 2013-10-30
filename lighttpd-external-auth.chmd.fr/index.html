@@ -5,12 +5,13 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="//chmd.fr/style.css" type="text/css" />
 </head>
 <body>
 <h1 id="lighttpd-external-auth">Lighttpd external-auth</h1>
 <h2 id="summary">Summary</h2>
-<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua">external-auth.lua</a> is a lighttpd magnet script:</p>
+<p><a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua">external-auth.lua</a> is a lighttpd magnet script:</p>
 <ul>
 <li>Originally written for openid</li>
 <li>Providing access control via openid, oauth and the likes</li>
@@ -24,8 +25,8 @@
 <li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. Then come back and visit the link. Before accessing it, you will be presented with a nice login page that actually performs some openid/oauth checks.</li>
 </ul>
 <h2 id="sourcelicense">Source/License</h2>
-<p>Source available at <a href="https://git.chmd.fr/?p=lighttpd-external-auth">git.chmd.fr</a>, mirrored on <a href="https://github.com/chmduquesne/lighttpd-external-auth">github</a>.</p>
-<pre><code>git clone https://git.chmd.fr/lighttpd-external-auth</code></pre>
+<p>Source available at <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git">git.chmd.fr</a>, mirrored on <a href="https://github.com/chmduquesne/lighttpd-external-auth">github</a>.</p>
+<pre><code>git clone https://git.chmd.fr/lighttpd-external-auth.git</code></pre>
 <p>License MIT</p>
 <h2 id="work-flow">Work Flow</h2>
 <ol style="list-style-type: decimal">
@@ -36,7 +37,7 @@
 <p>The authentication token that is mentioned in this work flow is a hmac-sha1 signature, where the message to be signed is the username appended with a timestamp (the user will be allowed to access the content only within the time window where this timestamp is considered valid), and the secret is a random string that is shared between the magnet and the login page. This random string is initialized when the magnet script is loaded for the first time and is stored in a file, such that the login page can read it. Obviously, this means that the login page has to be hosted to be on the same lighttpd server, so that it can read the shared secret.</p>
 <h2 id="howto-demo1-the-basics">Howto demo1: The basics</h2>
 <ol style="list-style-type: decimal">
-<li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
+<li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
 <li><p>Install the lua dependencies. On debian:</p>
 <pre><code>sudo aptitude install luarocks
 sudo luarocks install luacrypto
@@ -60,7 +61,7 @@ sudo luarocks install lbase64</code></pre></li>
     }
     ...
 }</code></pre></li>
-<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php">magnet.php</a> to the document-root. Then, we edit <code>login.php</code>, the page that actually performs the login.</p>
+<li><p>We need to set up an authentication page. By default, the script redirects unauthenticated users to the page <code>/login.php</code>. For now, we will follow these defaults. We will first copy the file <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=magnet.php">magnet.php</a> to the document-root. Then, we edit <code>login.php</code>, the page that actually performs the login.</p>
 <pre><code>&lt;?php
 // We need the functions in the script &#39;magnet.php&#39;, that we installed
 // along with our login page
@@ -198,7 +199,7 @@ else {
 </ol>
 <p>Done!</p>
 <h2 id="howto-demo3-real-openidoauth">Howto demo3: real openid/oauth</h2>
-<p>Ok, so we have written lame login pages. What about openid and oauth? As you might expect, login pages can get a little bit fancy and complicated, so we will not get into many details. This project provides such a login page (a copy of the one that lives on <a href="https://login.chmd.fr">login.chmd.fr</a>). It protects <a href="/demo3">demo3</a> How to set it up is explained in the README files of <a href="https://git.chmd.fr/?p=lighttpd-external-auth;a=tree;f=example-loginpage">example-loginpage</a>. We will just quickly give the configuration:</p>
+<p>Ok, so we have written lame login pages. What about openid and oauth? As you might expect, login pages can get a little bit fancy and complicated, so we will not get into many details. This project provides such a login page (a copy of the one that lives on <a href="https://login.chmd.fr">login.chmd.fr</a>). It protects <a href="/demo3">demo3</a> How to set it up is explained in the README files of <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=tree;f=example-loginpage">example-loginpage</a>. We will just quickly give the configuration:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>/etc/lighttpd/lighttpd.conf</code></p>
 <pre><code>$HTTP[&quot;host&quot;] == &quot;lighttpd-external-auth.chmd.fr&quot; {

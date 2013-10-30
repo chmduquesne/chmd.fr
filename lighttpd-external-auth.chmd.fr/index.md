@@ -5,7 +5,7 @@ Lighttpd external-auth
 Summary
 -------
 
-[external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua)
+[external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua)
 is a lighttpd magnet script:
 
 - Originally written for openid
@@ -30,10 +30,10 @@ Source/License
 --------------
 
 Source available at
-[git.chmd.fr](https://git.chmd.fr/?p=lighttpd-external-auth), mirrored on
+[git.chmd.fr](https://git.chmd.fr/?p=lighttpd-external-auth.git), mirrored on
 [github](https://github.com/chmduquesne/lighttpd-external-auth).
 
-    git clone https://git.chmd.fr/lighttpd-external-auth
+    git clone https://git.chmd.fr/lighttpd-external-auth.git
 
 License MIT
 
@@ -71,7 +71,7 @@ Howto demo1: The basics
 -----------------------
 
 1. Install
-   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=external-auth.lua).
+   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua).
    We will copy it to `/etc/lighttpd/lua/external-auth.lua`, but any path
    readable by lighttpd would work.
 
@@ -111,7 +111,7 @@ Howto demo1: The basics
 5. We need to set up an authentication page. By default, the script
    redirects unauthenticated users to the page `/login.php`. For now, we
    will follow these defaults. We will first copy the file
-   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth;a=blob_plain;f=magnet.php)
+   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=magnet.php)
    to the document-root. Then, we edit `login.php`, the page that actually
    performs the login.
 
@@ -298,7 +298,7 @@ might expect, login pages can get a little bit fancy and complicated, so we
 will not get into many details. This project provides such a login page (a copy
 of the one that lives on [login.chmd.fr](https://login.chmd.fr)). It protects
 [demo3](/demo3) How to set it up is explained in the README files of
-[example-loginpage](https://git.chmd.fr/?p=lighttpd-external-auth;a=tree;f=example-loginpage).
+[example-loginpage](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=tree;f=example-loginpage).
 We will just quickly give the configuration:
 
 1. `/etc/lighttpd/lighttpd.conf`
