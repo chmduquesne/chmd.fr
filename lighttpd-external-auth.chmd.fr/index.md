@@ -15,9 +15,10 @@ is a lighttpd magnet script:
 
 Demo
 ----
-* [demo](/demo3): You will be asked to log in using the method of your
-  choice to see the content. This should give you a clear idea about the
-  possibilities of the script.
+
+Here is [a protected directory](/demo3): You will be asked to log in using
+the method of your choice to see the content. This should give you a clear
+idea about the possibilities of the script.
 
 How do I use this?
 ------------------
