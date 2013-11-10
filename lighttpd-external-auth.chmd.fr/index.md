@@ -19,12 +19,8 @@ Demo
   choice to see the content. This should give you a clear idea about the
   possibilities of the script.
 
-Other 
-* [demo 2](/demo2): This page demonstrates per-user access control. You
-  cannot login as "Guest", but you can do it as "VIP".
-
-TL;DR How do I use this?
-------------------------
+How do I use this?
+------------------
 
 Let us assume that you created a dedicated subdomain `login.example.com`
 for hosting the login page (for other situations, read the tutorials).
