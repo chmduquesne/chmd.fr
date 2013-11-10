@@ -346,11 +346,12 @@ Done!
 Tutorial demo3: real openid/oauth
 ---------------------------------
 
-Ok, so we have written lame login pages. What about openid and oauth? As you
-might expect, login pages can get a little bit fancy and complicated, so we
-will not get into many details. This project provides such a login page (a copy
-of the one that lives on [login.chmd.fr](https://login.chmd.fr)). It protects
-[demo3](/demo3) How to set it up is explained in the README files of
+Ok, so we have written lame login pages. What about openid and oauth? As
+you might expect, login pages can get a little bit fancy and complicated,
+so we will not get into many details. This project provides such a login
+page (a copy of the one that lives on
+[login.chmd.fr](https://login.chmd.fr)). It protects [demo3](/demo3). How
+to set it up is explained in the README files of
 [example-loginpage](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=tree;f=example-loginpage).
 We will just quickly give the configuration:
 
