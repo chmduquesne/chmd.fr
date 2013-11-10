@@ -26,6 +26,59 @@ Demos
   you will be presented with a nice login page that actually performs some
   openid/oauth checks.
 
+TL;DR How do I use this?
+------------------------
+
+Let us assume that you created a dedicated subdomain `login.example.com`
+for hosting the login page (for other situations, read the tutorials).
+
+1. Copy
+   [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua).
+   to `/etc/lighttpd/lua/external-auth.lua`.
+
+2. Install the lua dependencies. On debian:
+
+        sudo aptitude install luarocks
+        sudo luarocks install luacrypto
+
+3. Copy the files of
+   [example-loginpage](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=tree;f=example-loginpage)
+   to the root of your subdomain `login.example.com`
+
+4. Follow the installation instructions for hybridauth indicated in the
+   file
+   [hybridauth/README.md](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=example-loginpage/hybridauth/README.md)
+
+5. Change the variable `$magnet_config["domain"]` to reflect your domain
+   in the file
+   [magnet.php](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=example-loginpage/magnet.php)
+
+        $magnet_config["domain"] = "example.com";
+
+6. Activate `mod_setenv` and `mod_magnet` in `/etc/lighttpd/lighttpd.conf`
+
+        server.modules = (
+            ...
+            "mod_setenv",
+            "mod_magnet",
+            ...
+        )
+
+7. Create your authentication file `/etc/lighttpd/lua/external-auth/auth.lua`
+
+        config["login_url"] = "https://login.example.com"
+        config["authorized_identities"] = { }
+        config["authorized_identities"]["your.mail@gmail.com (Google)"] = true
+
+8. Protect your content using lighttpd conditionals
+
+        $HTTP["url"] =~ "/protected.*" {
+            setenv.add-environment = ( "EXTERNAL_AUTH_CONFIG" =>
+            "/etc/lighttpd/lua/external-auth/auth.lua" )
+            magnet.attract-physical-path-to = (
+            "/etc/lighttpd/lua/external-auth.lua" )
+        }
+
 Source/License
 --------------
 
@@ -37,9 +90,10 @@ Source available at
 
 License MIT
 
-Work Flow
----------
+How does this work?
+-------------------
 
+Here is the intended work flow:
 1. The user tries to access protected content. The magnet script
    intercepts the request and checks for a username and an authentication
    token in the user's cookies. As no authentication has occurred yet, this
@@ -67,8 +121,8 @@ page can read it.  Obviously, this means that the login page has to be
 hosted to be on the same lighttpd server, so that it can read the shared
 secret.
 
-Howto demo1: The basics
------------------------
+Tutorial demo1: The basics
+--------------------------
 
 1. Install
    [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua).
@@ -158,8 +212,8 @@ Howto demo1: The basics
 
 That is it!
 
-Howto demo2: Access Control
----------------------------
+Tutorial demo2: Access Control
+------------------------------
 
 The next step will be about limiting the access to some users. We now want
 to protect the urls starting with
@@ -289,8 +343,8 @@ environment variables.
 
 Done!
 
-Howto demo3: real openid/oauth
-------------------------------
+Tutorial demo3: real openid/oauth
+---------------------------------
 
 Ok, so we have written lame login pages. What about openid and oauth? As you
 might expect, login pages can get a little bit fancy and complicated, so we
