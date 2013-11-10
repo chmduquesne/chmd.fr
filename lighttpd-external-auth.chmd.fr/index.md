@@ -88,6 +88,7 @@ How does this work?
 -------------------
 
 Here is the intended work flow:
+
 1. The user tries to access protected content. The magnet script
    intercepts the request and checks for a username and an authentication
    token in the user's cookies. As no authentication has occurred yet, this
