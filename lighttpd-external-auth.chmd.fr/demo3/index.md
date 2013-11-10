@@ -1,6 +1,6 @@
-And yup, it works too!
-======================
+And yup, it works!
+==================
 
-You are now seeing the demo3.
+You are now seeing protected content.
 
 [Back](/)

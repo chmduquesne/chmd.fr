@@ -13,18 +13,15 @@ is a lighttpd magnet script:
 - Allowing per-user filtering
 - Protecting static content / web apps unaware of security otherwise
 
-Demos
------
-* [demo 1](/demo1): This page is protected by a lame login page. POST-ing
-  "login=Guest" signs you on as "Guest", and POST-ing "logout=logout"
-  signs you off.
+Demo
+----
+* [demo](/demo3): You will be asked to log in using the method of your
+  choice to see the content. This should give you a clear idea about the
+  possibilities of the script.
+
+Other 
 * [demo 2](/demo2): This page demonstrates per-user access control. You
   cannot login as "Guest", but you can do it as "VIP".
-* [demo 3](/demo3): Before trying this one, you should
-  [logout](https://login.chmd.fr/?logout=true), because no access control
-  will performed. Then come back and visit the link. Before accessing it,
-  you will be presented with a nice login page that actually performs some
-  openid/oauth checks.
 
 TL;DR How do I use this?
 ------------------------
@@ -123,6 +120,11 @@ secret.
 
 Tutorial demo1: The basics
 --------------------------
+
+First, you should [logout](https://login.chmd.fr/?logout=true), Then you
+can try to visit [demo 1](/demo1): This page is protected by a lame login
+page. POST-ing "login=Guest" signs you on as "Guest", and POST-ing
+"logout=logout" signs you off.
 
 1. Install
    [external-auth.lua](https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua).

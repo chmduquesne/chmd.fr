@@ -18,12 +18,11 @@
 <li>Allowing per-user filtering</li>
 <li>Protecting static content / web apps unaware of security otherwise</li>
 </ul>
-<h2 id="demos">Demos</h2>
+<h2 id="demo">Demo</h2>
 <ul>
-<li><a href="/demo1">demo 1</a>: This page is protected by a lame login page. POST-ing &quot;login=Guest&quot; signs you on as &quot;Guest&quot;, and POST-ing &quot;logout=logout&quot; signs you off.</li>
-<li><a href="/demo2">demo 2</a>: This page demonstrates per-user access control. You cannot login as &quot;Guest&quot;, but you can do it as &quot;VIP&quot;.</li>
-<li><a href="/demo3">demo 3</a>: Before trying this one, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, because no access control will performed. Then come back and visit the link. Before accessing it, you will be presented with a nice login page that actually performs some openid/oauth checks.</li>
+<li><a href="/demo3">demo</a>: You will be asked to log in using the method of your choice to see the content. This should give you a clear idea about the possibilities of the script.</li>
 </ul>
+<p>Other * <a href="/demo2">demo 2</a>: This page demonstrates per-user access control. You cannot login as &quot;Guest&quot;, but you can do it as &quot;VIP&quot;.</p>
 <h2 id="tldr-how-do-i-use-this">TL;DR How do I use this?</h2>
 <p>Let us assume that you created a dedicated subdomain <code>login.example.com</code> for hosting the login page (for other situations, read the tutorials).</p>
 <ol style="list-style-type: decimal">
@@ -62,6 +61,7 @@ config[&quot;authorized_identities&quot;][&quot;your.mail@gmail.com (Google)&quo
 <p>Here is the intended work flow: 1. The user tries to access protected content. The magnet script intercepts the request and checks for a username and an authentication token in the user's cookies. As no authentication has occurred yet, this fails and the user is redirected to a login page. 2. On the login page, the user goes through an authentication process. This part has actually nothing to do with this script. The only thing that matters is that, at the end of this authentication process, when the authentication is successful, the login page sets the appropriate username and authentication token in the cookies of the user's browser, and then redirects the user to the original url. 3. This time, when the script checks, it finds the username and the authentication token in the user's cookies. It checks that the token is valid, then checks that this username is allowed to access the content. If both conditions are satisfied, the script stops there and lets lighttpd deliver the content normally.</p>
 <p>The authentication token that is mentioned in this work flow is a hmac-sha1 signature, where the message to be signed is the username appended with a timestamp (the user will be allowed to access the content only within the time window where this timestamp is considered valid), and the secret is a random string that is shared between the magnet and the login page. This random string is initialized when the magnet script is loaded for the first time and is stored in a file, such that the login page can read it. Obviously, this means that the login page has to be hosted to be on the same lighttpd server, so that it can read the shared secret.</p>
 <h2 id="tutorial-demo1-the-basics">Tutorial demo1: The basics</h2>
+<p>First, you should <a href="https://login.chmd.fr/?logout=true">logout</a>, Then you can try to visit <a href="/demo1">demo 1</a>: This page is protected by a lame login page. POST-ing &quot;login=Guest&quot; signs you on as &quot;Guest&quot;, and POST-ing &quot;logout=logout&quot; signs you off.</p>
 <ol style="list-style-type: decimal">
 <li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
 <li><p>Install the lua dependencies. On debian:</p>
