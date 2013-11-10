@@ -79,7 +79,6 @@ Howto demo1: The basics
 
         sudo aptitude install luarocks
         sudo luarocks install luacrypto
-        sudo luarocks install lbase64
 
 3. Activate `mod_setenv` and `mod_magnet` in `/etc/lighttpd/lighttpd.conf`
 

@@ -40,8 +40,7 @@
 <li><p>Install <a href="https://git.chmd.fr/?p=lighttpd-external-auth.git;a=blob_plain;f=external-auth.lua">external-auth.lua</a>. We will copy it to <code>/etc/lighttpd/lua/external-auth.lua</code>, but any path readable by lighttpd would work.</p></li>
 <li><p>Install the lua dependencies. On debian:</p>
 <pre><code>sudo aptitude install luarocks
-sudo luarocks install luacrypto
-sudo luarocks install lbase64</code></pre></li>
+sudo luarocks install luacrypto</code></pre></li>
 <li><p>Activate <code>mod_setenv</code> and <code>mod_magnet</code> in <code>/etc/lighttpd/lighttpd.conf</code></p>
 <pre><code>server.modules = (
     ...
