@@ -14,6 +14,6 @@ About me
 ---------------
 
 * [repositories](//git.chmd.fr)
-* [hpass](//minibackup.chmd.fr)
+* [hpass](//hpass.chmd.fr)
 * [minibackup](//minibackup.chmd.fr)
 * [lighttpd-external-auth](//lighttpd-external-auth.chmd.fr)
