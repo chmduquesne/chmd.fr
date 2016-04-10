@@ -1,14 +1,10 @@
 BEGIN:VCARD
 VERSION:4.0
 N:Duquesne;Christophe-Marie;;Dr;
-NICKNAME:Tof
-GENDER:M
-GEO:geo:48.136520,11.609291
-BDAY:19851301
 FN:Christophe-Marie Duquesne
+NICKNAME:Tof
 ORG:Amadeus
 TITLE:Senior Data Scientist
-PHOTO;MEDIATYPE=image/png:http://chmd.fr/me.png
 TEL;TYPE=work,voice;VALUE=uri:tel:+491719718132
 TEL;TYPE=home,voice;VALUE=uri:tel:+4915753043100
 TEL;TYPE=france,voice;VALUE=uri:tel:+33684142682
@@ -18,5 +14,4 @@ EMAIL:chmd@chmd.fr
 EMAIL:chm.duquesne@gmail.com
 EMAIL:christophe-marie.duquesne@amadeus.com
 REV:20160410T173035Z
-SOURCE:http://chmd.fr/contact.vcf
 END:VCARD
