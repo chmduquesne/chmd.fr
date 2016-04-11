@@ -9,9 +9,8 @@ TEL;TYPE=work,voice;VALUE=uri:tel:+491719718132
 TEL;TYPE=home,voice;VALUE=uri:tel:+4915753043100
 TEL;TYPE=france,voice;VALUE=uri:tel:+33684142682
 ADR;TYPE=work;LABEL="Amadeus Data Processing Gmbh\nBerghamer Str. 6\n85435 Erding\nBayern\nDeutschland":;;Berghamer Str. 6;Erding;Bayern;81675;Deutschland
-ADR;TYPE=home;LABEL="Einsteinstr. 129\n81675 München\nBayern\nDeutschland":;;Einsteinstr 129;München;Bayern;81675;Deutschland
 EMAIL:chmd@chmd.fr
-EMAIL:chm.duquesne@gmail.com
 EMAIL:christophe-marie.duquesne@amadeus.com
-REV:20160410T173035Z
+PHOTO;TYPE=JPEG:http://chmd.fr/id.jpg
+REV:20160411T161000Z
 END:VCARD
