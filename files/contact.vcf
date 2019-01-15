@@ -1,0 +1,16 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Duquesne;Christophe-Marie;;Dr;
+FN:Christophe-Marie Duquesne
+NICKNAME:Tof
+ORG:Amadeus
+TITLE:Senior Data Scientist
+TEL;TYPE=work,voice;VALUE=uri:tel:+491719718132
+TEL;TYPE=home,voice;VALUE=uri:tel:+4915753043100
+TEL;TYPE=france,voice;VALUE=uri:tel:+33684142682
+ADR;TYPE=work;LABEL="Amadeus Data Processing Gmbh\nBerghamer Str. 6\n85435 Erding\nBayern\nDeutschland":;;Berghamer Str. 6;Erding;Bayern;81675;Deutschland
+EMAIL:chmd@chmd.fr
+EMAIL:christophe-marie.duquesne@amadeus.com
+PHOTO;TYPE=JPEG:http://chmd.fr/id.jpg
+REV:20160411T161000Z
+END:VCARD
