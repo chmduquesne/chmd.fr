@@ -1,4 +1,4 @@
-all: clean cp docs/index.html docs/gpg.html
+all: clean cp docs/index.html
 
 cp:
 	cp files/* docs
