@@ -1,8 +1,5 @@
 % Ch-M.D
 
-Ch-M.D
-======
-
 Welcome to my personal website.
 
 About me
