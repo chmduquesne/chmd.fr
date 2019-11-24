@@ -8,4 +8,4 @@ About me
 * [resume](//resume.chmd.fr)
 * [blog](//blog.chmd.fr)
 * [projects](https://github.com/chmduquesne)
-* [contact](//contact.vcf)
+* [contact](///contact.vcf)
